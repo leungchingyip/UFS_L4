@@ -44,23 +44,21 @@ I set the Session as a child of Conference. It is easy to get each other by ndb.
 
 ## Task 3
 
-### getConferenceAndSessionByDate
+#### getConferenceAndSessionByDate
 
-When user are free on one day and want to join a workshop or have a lecture. User can just search conference and session on the day derectly.
+When user is free on one day and want a worshop or lecture to join. User can just search conference and session by date derectly.
 
-### getConferenceAndSessionByKeyword
+#### getConferenceAndSessionByKeyword
 
-When user are insteresting in some theme specificly and want to search will there be a conference about it. User can use keyword to search. The search area includes name, description, topics property of conference, sessionName, hightlights and conferenceBelongTo property of session.
+When user is insteresting in some themes specific. User can use keyword to search. The search area includes name, description, topics property of conference, sessionName, hightlights and conferenceBelongTo property of session.
 
-### Problem solve.
+#### Problem solve.
 
-The problem we have is that google cloud platform query only support one inequality filter per query.
-
-I think there are two ways to solve it.
+The problem we have is google cloud platform's query only support one inequality filter per query. I think there are two ways to solve it.
 
 1. I think the number of typeOfSession will be quite limited. For example, if there are just three choices in typeOfSessoin(lecture, keynote, workshop). So when user don't want workshop. It means user want lecture or keynote. So we can use Sesssion.typeOfSession.IN("lecture", "keynote") instead of filter(Sesssion.typeOfSession != "workshop").
 
-2. We still use filter(Sesssion.typeOfSession != "workshop"). When we got the none workshop query. We order it by startTime. And get it one by one by for loop. Then check if each object's startTime greater than 19:00. If true, put it in a list. When the for loop finished, the list is the query we want.  
+2. We still use filter(Sesssion.typeOfSession != "workshop"). When we got the none workshop query. We order it by startTime. And get it one by one by for loop. Then check if each object's startTime less than 19:00. If true, put it in a list. When the for loop finished, the list is the query we want.  
 
-For this example, I think first way is more efficient. I choose first way to implement it.
+For this case, I think first way is more efficient. I tried the first way to implement it.
 
